@@ -1,24 +1,22 @@
-# This is a template for a Python scraper on morph.io (https://morph.io)
-# including some code snippets below that you should find helpful
+import scraperwiki
+import lxml.html
 
-# import scraperwiki
-# import lxml.html
-#
-# # Read in a page
-# html = scraperwiki.scrape("http://foo.com")
-#
-# # Find something on the page using css selectors
-# root = lxml.html.fromstring(html)
-# root.cssselect("div[align='left']")
-#
-# # Write out to the sqlite database using scraperwiki library
-# scraperwiki.sqlite.save(unique_keys=['name'], data={"name": "susan", "occupation": "software developer"})
-#
-# # An arbitrary query against the database
-# scraperwiki.sql.select("* from data where 'name'='peter'")
+# Načítanie stránky
+html = scraperwiki.scrape("https://www.shmu.sk/sk/?page=765&station_id=7472")
 
-# You don't have to do things with the ScraperWiki and lxml libraries.
-# You can use whatever libraries you want: https://morph.io/documentation/python
-# All that matters is that your final data is written to an SQLite database
-# called "data.sqlite" in the current working directory which has at least a table
-# called "data".
+# Nájdenie tabuľky s informáciami o stanici
+root = lxml.html.fromstring(html)
+table = root.cssselect("table.center.w500")[0]  # Vyber prvú tabuľku s týmto triedovým selektorom
+
+# Parsovanie informácií z tabuľky
+data = {}
+for row in table.cssselect("tbody tr"):
+    cells = row.cssselect("td")
+    if len(cells) == 2:
+        attribute = cells[0].text_content().strip().rstrip(":")
+        value = cells[1].text_content().strip()
+        data[attribute] = value
+
+# Výpis získaných informácií
+for attribute, value in data.items():
+    print(f"{attribute}: {value}")
