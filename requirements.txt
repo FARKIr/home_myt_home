@@ -7,3 +7,20 @@
 
 lxml==3.4.4
 cssselect==0.9.1
+
+
+
+
+#  Je ľahké pridať ďalšie knižnice alebo vybrať rôzne verzie. Akékoľvek knižnice 
+#  Tu zadaný sa nainštaluje a sprístupní vášmu škrabáku morph.io. ,
+#  Zistite viac: https://morph.io/documentation/python 
+
+#  Vlastná verzia knižnice scraperwiki 
+#     -e git+http://github.com/openaustralia/scraperwiki-python.git@morph_defaults#egg=scraperwiki 
+#     lxml==3.4.4 
+#     cssselect==0.9.1 10
+
+
+-e git+http://github.com/openaustralia/scraperwiki-python.git@morph_defaults#egg=scraperwiki
+lxml==3.4.4
+cssselect==0.9.1
